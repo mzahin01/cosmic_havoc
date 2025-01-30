@@ -1,5 +1,4 @@
 import 'package:cosmic_havoc/my_game.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TitleOverlay extends StatefulWidget {

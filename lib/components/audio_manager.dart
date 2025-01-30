@@ -20,7 +20,7 @@ class AudioManager extends Component {
     'start',
   ];
 
-  Map<String, int> _soundIds = {};
+  final Map<String, int> _soundIds = {};
   final Soundpool _soundpool = Soundpool.fromOptions(
     options: const SoundpoolOptions(maxStreams: 10),
   );
