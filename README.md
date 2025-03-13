@@ -1,16 +1,7 @@
-# cosmic_havoc
+# Cosmic Havoc
 
-A new Flutter project.
+A 2D space shooter game created with the Flame game engine in Flutter.
 
-## Getting Started
+For a complete tutorial on how to create the game, check out this video on my YouTube channel, [Sweater Cat Studios](https://www.youtube.com/channel/UCUfS2Zf_vle30dbWbgSjuBg)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Full Game Dev and Graphic Design tutorials: (https://sweatercatdesigns.com/)
