@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
-import 'package:flutter/services.dart';
-import 'package:soundpool/soundpool.dart';
 
 class AudioManager extends Component {
   bool musicEnabled = true;
@@ -20,22 +18,16 @@ class AudioManager extends Component {
     'start',
   ];
 
-  final Map<String, int> _soundIds = {};
-  final Soundpool _soundpool = Soundpool.fromOptions(
-    options: const SoundpoolOptions(maxStreams: 10),
-  );
+  final Map<String, AudioPlayer> _soundPlayers = {};
 
   @override
   FutureOr<void> onLoad() async {
     FlameAudio.bgm.initialize();
 
-    // load the sound effect files
+    // Pre-initialize audio players for sound effects
     for (String sound in _sounds) {
-      _soundIds[sound] = await rootBundle
-          .load('assets/audio/$sound.ogg')
-          .then((ByteData data) {
-        return _soundpool.load(data);
-      });
+      _soundPlayers[sound] = AudioPlayer();
+      await _soundPlayers[sound]!.setSource(AssetSource('audio/$sound.ogg'));
     }
 
     return super.onLoad();
@@ -47,9 +39,10 @@ class AudioManager extends Component {
     }
   }
 
-  void playSound(String sound) {
-    if (soundsEnabled) {
-      _soundpool.play(_soundIds[sound]!);
+  void playSound(String sound) async {
+    if (soundsEnabled && _soundPlayers.containsKey(sound)) {
+      await _soundPlayers[sound]!.stop(); // Stop any previous instance
+      await _soundPlayers[sound]!.resume(); // Play the sound
     }
   }
 
@@ -64,5 +57,14 @@ class AudioManager extends Component {
 
   void toggleSounds() {
     soundsEnabled = !soundsEnabled;
+  }
+
+  @override
+  void onRemove() {
+    // Clean up audio players
+    for (AudioPlayer player in _soundPlayers.values) {
+      player.dispose();
+    }
+    super.onRemove();
   }
 }
